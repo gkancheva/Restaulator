@@ -1,0 +1,30 @@
+.navbar-violet {
+    background-color: #5a6986;
+}
+
+.btn-custom {
+    outline-color: black;
+    background: #434b5c;
+    color: #f0f0f0;
+}
+
+.btn-custom:hover, .btn-custom:focus{
+    color: #ffffff;
+    background: #697590;
+}
+
+.nav-link-white {
+    color: #eeeeee;
+}
+
+.nav-link-white:hover {
+    color: #FFFFFF;
+}
+
+.nav-link-white:focus {
+    color: #FFFFFF;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}

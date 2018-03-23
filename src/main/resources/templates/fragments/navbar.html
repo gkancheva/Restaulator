@@ -1,0 +1,39 @@
+<nav class="navbar navbar-dark navbar-expand-lg navbar-violet" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <a class="navbar-brand nav-link-white" href="/">Restaulator</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar"
+            aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item disabled">
+                <a class="nav-link" href="/" sec:authorize="isAuthenticated()">Home</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown"
+                       href="/" aria-expanded="false">Suppliers</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="/suppliers" sec:authorize="isAuthenticated()">Show</a>
+                        <a class="dropdown-item" href="/suppliers/add" sec:authorize="isAuthenticated()">Add</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/recipes" sec:authorize="isAuthenticated()">Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/sales" sec:authorize="isAuthenticated()">Sales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/register" sec:authorize="isAnonymous()">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/login" sec:authorize="isAnonymous()">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/logout" sec:authorize="isAuthenticated()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

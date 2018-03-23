@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+    <div th:replace="fragments/navbar"></div>
+    <div class="container my-3">
+        <div class="alert alert-danger text-center" th:if="${#fields.hasErrors('${user}')}">
+            <span th:each="e : ${#fields.errors('${user}')}" th:text="${e}"></span>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-3">
+                <h2 class="text-center">Login</h2>
+                <form class="my-3" th:action="@{/users/login}" th:method="post" th:object="${user}">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" title="email" class="form-control" th:field="*{email}"
+                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}"
+                             th:each="e : ${#fields.errors('email')}"
+                             th:text="${e}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" title="password" class="form-control" th:field="*{password}"
+                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}"
+                             th:each="e : ${#fields.errors('password')}"
+                             th:text="${e}"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-custom btn-block btn-md">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>
