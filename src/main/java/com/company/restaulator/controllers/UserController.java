@@ -6,7 +6,6 @@ import com.company.restaulator.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -58,20 +57,9 @@ public class UserController {
         return mav;
     }
 
-    @PostMapping("/login")
-    public ModelAndView login(@Valid @ModelAttribute("user") UserLoginDTO user, BindingResult br, ModelAndView mav) {
-        if(br.hasErrors()) {
-            mav.setViewName("users/login");
-            return mav;
-        }
-        if(this.userService.findByEmail(user.getEmail()) != null) {
-
-            mav.setViewName("redirect:/users/login");
-            br.addError(new ObjectError("user", "Incorrect email or password"));
-            return mav;
-        }
-        // TODO: 3/20/2018 do login! ;
-        mav.setViewName("redirect:/");
+    @PostMapping("/logout")
+    public ModelAndView logout(ModelAndView mav) {
+        mav.setViewName("redirect:/login");
         return mav;
     }
 

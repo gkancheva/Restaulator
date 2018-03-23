@@ -1,13 +1,19 @@
 package com.company.restaulator.models.entities;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,9 +32,23 @@ public class User {
     @Length(min = 3)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> authorities;
+
+    @Column
+    private boolean isAccountNonExpired;
+
+    @Column
+    private boolean isAccountNonLocked;
+
+    @Column
+    private boolean isCredentialsNonExpired;
+
+    @Column
+    private boolean isEnabled;
 
     public User() {
     }
@@ -73,11 +93,53 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    @Override
+    public String getUsername() {
+        return null;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.isAccountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.isAccountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return this.isCredentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.isEnabled;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    public void setAuthorities(Set<Role> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        isAccountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        isAccountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        isCredentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }
