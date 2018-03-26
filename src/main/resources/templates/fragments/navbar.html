@@ -26,6 +26,9 @@
                 <a class="nav-link" href="/sales" sec:authorize="isAuthenticated()">Sales</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/users" sec:authorize="hasAuthority('ADMIN')">Users</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/users/register" sec:authorize="isAnonymous()">Register</a>
             </li>
             <li class="nav-item">

@@ -1,5 +1,6 @@
 package com.company.restaulator.services;
 
+import com.company.restaulator.models.dtos.RoleDTO;
 import com.company.restaulator.models.entities.Role;
 import com.company.restaulator.models.entities.User;
 import com.company.restaulator.models.dtos.UserRegisterDTO;
@@ -37,13 +38,14 @@ public class UserServiceImpl implements UserService {
     public void save(UserRegisterDTO userDto) {
         User user = DTOConverter.convert(userDto, User.class);
         user.setPassword(this.encoder.encode(userDto.getPassword()));
-        Role role = this.roleService.findByAuthority(PREDEFINED_USER_ROLE);
+        RoleDTO roleDTO = this.roleService.findByAuthority(PREDEFINED_USER_ROLE);
+        Role role = DTOConverter.convert(roleDTO, Role.class);
         user.setAuthorities(new HashSet<>(Collections.singletonList(role)));
         user.setCredentialsNonExpired(true);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setEnabled(true);
-        this.userRepo.save(user);
+        this.userRepo.saveAndFlush(user);
     }
 
     @Transactional

@@ -8,9 +8,7 @@
 <body>
     <div th:replace="fragments/navbar"></div>
     <div class="container my-3">
-        <div class="alert alert-danger text-center" th:if="${#fields.hasErrors('${user}')}">
-            <span th:each="e : ${#fields.errors('${user}')}" th:text="${e}"></span>
-        </div>
+        <th:block th:replace="fragments/messages"></th:block>
         <div class="row justify-content-center">
             <div class="col-md-6 mt-3">
                 <h2 class="text-center">Login</h2>
@@ -31,8 +29,7 @@
                              th:each="e : ${#fields.errors('password')}"
                              th:text="${e}"></div>
                     </div>
-
-                    <button type="submit" class="btn btn-custom btn-block btn-md">Register</button>
+                    <button type="submit" class="btn btn-custom btn-block btn-md">Login</button>
                 </form>
             </div>
         </div>

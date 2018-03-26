@@ -1,7 +1,7 @@
 package com.company.restaulator.services;
 
-import com.company.restaulator.models.entities.Role;
+import com.company.restaulator.models.dtos.RoleDTO;
 
 public interface RoleService {
-    Role findByAuthority(String authority);
+    RoleDTO findByAuthority(String authority);
 }

@@ -13,11 +13,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class HomeController {
+public class HomeController extends BaseController {
+
+    private static final String INDEX = "index";
 
     @GetMapping("/")
     public ModelAndView home(ModelAndView mav) {
-        mav.setViewName("index");
         List<Meal> meals = new ArrayList<>();
         Recipe musaka = new Recipe("Мусака", new ArrayList<>(), 0.400, new BigDecimal(2.00));
         meals.add(new Meal(musaka, 40, new BigDecimal(7.00)));
@@ -28,6 +29,6 @@ public class HomeController {
         Recipe cremeCraamel = new Recipe("Крем карамел", new ArrayList<>(), 0.150, new BigDecimal(1.00));
         meals.add(new Meal(cremeCraamel, 60, new BigDecimal(3.5)));
         mav.addObject("meals", meals);
-        return mav;
+        return this.view(INDEX, "meals", meals);
     }
 }

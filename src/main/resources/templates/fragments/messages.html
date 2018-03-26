@@ -1,0 +1,14 @@
+<div id="messages"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:if="${notification != null}" th:class="|alert ${notification.getType()}  text-center|">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span th:utext="${notification.getMessage()}"></span>
+    </div>
+    <div th:if="${param.logout != null}" class="alert alert-info text-center">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span>Logout successful!</span>
+    </div>
+    <div class="alert alert-danger text-center" th:if="${#fields.hasErrors('${user}')}">
+        <span th:each="e : ${#fields.errors('${user}')}" th:text="${e}"></span>
+    </div>
+</div>
