@@ -9,6 +9,9 @@
     <div th:replace="fragments/navbar"></div>
     <div class="container my-3">
         <th:block th:replace="fragments/messages"></th:block>
+        <div class="alert alert-danger text-center" th:if="${#fields.hasErrors('${user}')}">
+            <span th:each="e : ${#fields.errors('${user}')}" th:text="${e}"></span>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-6 mt-3">
                 <h2 class="text-center">Register</h2>

@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional
+@Transactional(readOnly = true)
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    @Transactional(readOnly = true)
     Role findByAuthority(String authority);
+
+    Role findById(long id);
 }

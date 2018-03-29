@@ -11,26 +11,27 @@
         <th:block th:replace="fragments/navbar"></th:block>
         <div class="container">
             <div class="text-center my-3">
-                <h2>Users</h2>
+                <h2>Suppliers</h2>
             </div>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Email</th>
-                    <th>Roles</th>
+                    <th>Name</th>
+                    <th>Contact phone</th>
+                    <th>Address</th>
                     <th class="text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="u, ind : ${users}">
+                <tr th:each="s, ind : ${suppliers}">
                     <td th:text="${ind.index + 1}"></td>
-                    <td th:text="${u.getEmail()}"></td>
-                    <td th:text="${#strings.setJoin(u.getAuthorities(), ', ')}"></td>
+                    <td th:text="${s.getName()}"></td>
+                    <td th:text="${s.getPhone()}"></td>
+                    <td th:text="${s.getAddress()}"></td>
                     <td class="text-center">
-                        <a th:href="@{/users/edit (email = ${u.getEmail()})}" th:text="Edit"></a>
+                        <a th:href="@{/suppliers/edit (name = ${s.getName()})}" th:text="Edit"></a>
                     </td>
-
                 </tr>
                 </tbody>
             </table>

@@ -1,23 +1,25 @@
 package com.company.restaulator.models.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "entities")
+@Table(name = "suppliers")
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
+    @Size(min = 5)
     private String address;
 
     @Column(nullable = false)
-    private long phone;
+    private String phone;
 
     @Column(nullable = false)
     private boolean active;
@@ -55,11 +57,11 @@ public class Supplier {
         this.address = address;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

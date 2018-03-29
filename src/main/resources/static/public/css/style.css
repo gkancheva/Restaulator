@@ -1,5 +1,12 @@
-.navbar-violet {
+.navbar-blue {
     background-color: #5a6986;
+}
+
+.btn-nav-link {
+    background: none;
+    color: inherit;
+    border: none;
+    font: inherit;
 }
 
 .btn-custom {
@@ -8,20 +15,20 @@
     color: #f0f0f0;
 }
 
-.btn-custom:hover, .btn-custom:focus{
+.btn-custom:hover, .btn-custom:focus {
     color: #ffffff;
     background: #697590;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: #ffffff;
 }
 
 .nav-link-white {
     color: #eeeeee;
 }
 
-.nav-link-white:hover {
-    color: #FFFFFF;
-}
-
-.nav-link-white:focus {
+.nav-link-white:hover, .nav-link-white:focus {
     color: #FFFFFF;
 }
 

@@ -1,6 +1,7 @@
 package com.company.restaulator.services;
 
 import com.company.restaulator.models.dtos.RoleDTO;
+import com.company.restaulator.models.dtos.UserDTO;
 import com.company.restaulator.models.entities.Role;
 import com.company.restaulator.models.entities.User;
 import com.company.restaulator.models.dtos.UserRegisterDTO;
@@ -13,10 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,7 +47,6 @@ public class UserServiceImpl implements UserService {
         this.userRepo.saveAndFlush(user);
     }
 
-    @Transactional
     @Override
     public UserRegisterDTO findByEmail(String email) {
         User u = this.userRepo.findFirstByEmail(email);
@@ -56,6 +54,34 @@ public class UserServiceImpl implements UserService {
             return DTOConverter.convert(u, UserRegisterDTO.class);
         }
         return null;
+    }
+
+    @Override
+    public UserDTO findUserByEmail(String email) {
+        User user = this.userRepo.findFirstByEmail(email);
+        if(user == null) {
+            return null;
+        }
+        return DTOConverter.convert(user, UserDTO.class);
+    }
+
+    @Override
+    public List<UserDTO> findAll() {
+        List<User> users = this.userRepo.findAll();
+        return users.stream()
+                .map(u -> DTOConverter.convert(u, UserDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void update(UserDTO userDTO) {
+        User user = this.userRepo.findFirstByEmail(userDTO.getEmail());
+        Set<Role> roles = new HashSet<>();
+        for (RoleDTO roleDTO : userDTO.getAuthorities()) {
+            roles.add(DTOConverter.convert(roleDTO, Role.class));
+        }
+        user.setAuthorities(roles);
+        this.userRepo.saveAndFlush(user);
     }
 
     @Override
