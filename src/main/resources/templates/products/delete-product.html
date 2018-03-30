@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+    <div th:replace="fragments/navbar"></div>
+    <div class="container my-3">
+        <th:block th:replace="fragments/messages"></th:block>
+        <div class="alert alert-danger text-center" th:if="${#fields.hasErrors('${product}')}">
+            <span th:each="e : ${#fields.errors('${product}')}" th:text="${e}"></span>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center">Delete product</h2>
+                <h3 class="text-center">Do you want to delete this product?</h3>
+                <form class="my-3" th:action="@{/products/delete}" th:method="post" th:object="${product}">
+                    <input th:type="hidden" th:field="*{id}" />
+                    <div class="form-group">
+                        <label>Product name</label>
+                        <input type="text" title="name" class="form-control" th:field="*{name}" th:readonly="readonly"/>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" th:field="*{quantityInKg}" th:readonly="readonly"/>Quantity is in kg
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Price/kg or piece</label>
+                        <input type="number" step="0.1" title="price" class="form-control" th:field="*{price}" th:readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Producer</label>
+                        <input type="text" title="producer" class="form-control" th:field="*{producer}" th:readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <input type="text" title="name" class="form-control" th:value="*{supplier.getName()}" th:readonly="readonly"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mt-3">
+                            <button type="submit" class="btn btn-danger btn-block btn-md">Delete product</button>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <a th:href="@{/products (name = ${product.getSupplier().getName()})}"
+                               class="btn btn-custom btn-block btn-md">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>

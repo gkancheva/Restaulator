@@ -8,30 +8,32 @@
 </head>
 <body>
     <th:block th:replace="fragments/navbar"></th:block>
-    <div class="container-fluid">
+    <div class="container my-3">
         <th:block th:replace="fragments/messages"></th:block>
         <div class="container">
             <div class="text-center my-3">
-                <h2>Users</h2>
+                <h2>Products from Supplier:</h2>
+                <h3 th:text="${supplier.getName()}"></h3>
             </div>
+            <a th:href="@{/products/add}" class="btn btn-custom my-3">Add product</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Email</th>
-                    <th>Roles</th>
+                    <th>Name</th>
+                    <th>Price</th>
                     <th class="text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="u, ind : ${users}">
+                <tr th:each="p, ind : ${products}">
                     <td th:text="${ind.index + 1}"></td>
-                    <td th:text="${u.getEmail()}"></td>
-                    <td th:text="${#strings.setJoin(u.getAuthorities(), ', ')}"></td>
+                    <td th:text="${p.getName()}"></td>
+                    <td th:text="${p.getFormattedPrice()}"></td>
                     <td class="text-center">
-                        <a th:href="@{/users/edit (email = ${u.getEmail()})}" th:text="Edit"></a>
+                        <a th:href="@{/products/edit (id = ${p.getId()})}" th:text="Edit"></a>
+                        <a th:href="@{/products/delete (id = ${p.getId()})}" th:text="Delete"></a>
                     </td>
-
                 </tr>
                 </tbody>
             </table>

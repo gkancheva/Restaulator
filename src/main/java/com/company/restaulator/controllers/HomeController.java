@@ -1,7 +1,7 @@
 package com.company.restaulator.controllers;
 
-import com.company.restaulator.models.entities.Meal;
-import com.company.restaulator.models.entities.Recipe;
+import com.company.restaulator.areas.meal.entities.Meal;
+import com.company.restaulator.areas.meal.entities.Recipe;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
