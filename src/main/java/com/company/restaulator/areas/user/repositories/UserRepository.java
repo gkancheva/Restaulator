@@ -6,10 +6,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional
+@Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Transactional(readOnly = true)
     User findFirstByEmail(String email);
 
 }

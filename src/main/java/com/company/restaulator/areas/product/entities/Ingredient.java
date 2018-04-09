@@ -17,9 +17,10 @@ public class Ingredient {
     @Column(nullable = false)
     private double quantity;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "expiration_date", nullable = false)
+    @Column(name = "expiration_date", columnDefinition = "TIMESTAMP")
     private Date expirationDate;
+
+    private boolean ordered;
 
     public Ingredient() {
     }
@@ -54,5 +55,13 @@ public class Ingredient {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public boolean isOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(boolean ordered) {
+        this.ordered = ordered;
     }
 }

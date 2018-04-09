@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Restaulator</title>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+    <th:block th:replace="fragments/navbar"></th:block>
+    <div class="container my-3">
+        <th:block th:replace="fragments/messages"></th:block>
+        <div class="container">
+            <div class="text-center my-3">
+                <h2>Approve order</h2>
+            </div>
+            <div>
+                <h5 th:text="|Supplier: ${order.getSupplier().getName()}|"></h5>
+                <h5 th:text="|Date of order: ${#dates.format(order.getDateOfOrder(), 'dd-MMM-yyyy')}|"></h5>
+            </div>
+            <div class="text-center bt-3">
+                <h4>Products</h4>
+            </div>
+            <form class="my-3" th:action="@{/orders/approve}" th:method="post" th:object="${order}">
+                <input type="hidden" th:field="*{id}"/>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product name</th>
+                        <th>Producer</th>
+                        <th>Quantity</th>
+                        <th>Price per unit/kg</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="i, ind : ${order.getIngredients()}">
+                        <td th:text="${ind.index + 1}"></td>
+                        <td th:text="${i.getProduct().getName()}"></td>
+                        <td th:text="${i.getProduct().getProducer()}"></td>
+                        <td th:text="${i.getFormattedQuantity()}"></td>
+                        <td th:text="${i.getProduct().getFormattedPrice()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h5 class="mb-3" th:text="|Total price: ${order.getTotalPrice()}|"></h5>
+                <button type="submit" class="btn btn-custom btn-block btn-md">Approve order</button>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>

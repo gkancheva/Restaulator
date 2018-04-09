@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Restaulator</title>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+    <th:block th:replace="fragments/navbar"></th:block>
+    <div class="container my-3">
+        <th:block th:replace="fragments/messages"></th:block>
+        <div class="container">
+            <div class="text-center my-3">
+                <h2>Orders</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Supplier</th>
+                    <th>Date of order</th>
+                    <th>Total price</th>
+                    <th class="text-center" sec:authorize="hasAuthority('ADMIN')">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="o, ind : ${orders}">
+                    <td th:text="${ind.index + 1}"></td>
+                    <td th:text="${o.getSupplier().getName()}"></td>
+                    <td th:text="${#dates.format(o.getDateOfOrder(), 'dd-MMM-yyyy')}"></td>
+                    <td th:text="${o.getTotalPrice()}"></td>
+                    <td class="text-center" sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/orders/approve (id = ${o.getId()})}">View and approve</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>

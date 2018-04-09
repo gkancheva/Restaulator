@@ -1,6 +1,6 @@
 package com.company.restaulator.areas.product.repositories;
 
-import com.company.restaulator.areas.product.entities.Product;
+import com.company.restaulator.areas.product.entities.Ingredient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,10 +10,10 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
-    @Query("SELECT p FROM Product AS p WHERE p.supplier.id = ?1")
-    List<Product> findAllBySupplier(long supplierId);
+    @Query("SELECT i FROM Ingredient AS i WHERE i.ordered = TRUE")
+    List<Ingredient> findAllDelivered();
 
-    Product findById(long id);
+    Ingredient findById(long id);
 }

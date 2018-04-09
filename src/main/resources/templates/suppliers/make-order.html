@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+    <th:block th:replace="fragments/navbar"></th:block>
+    <div class="container my-3">
+        <th:block th:replace="fragments/messages"></th:block>
+        <div class="container">
+            <div class="text-center my-3">
+                <h2 th:text="|Order to Supplier: ${order.getSupplier().getName()}|"></h2>
+            </div>
+            <form class="my-3" th:action="@{/suppliers/order}" th:method="post" th:object="${order}">
+                <input th:type="hidden" th:field="*{supplier}" />
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product name</th>
+                        <th>Producer</th>
+                        <th>Quantity to order</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="i, ind : *{ingredients}" th:field="*{ingredients}">
+                        <td th:text="${ind.index + 1}"></td>
+                        <td th:text="${i.product.name}"></td>
+                        <td th:text="${i.product.producer}"></td>
+                        <td>
+                            <input type="hidden" th:field="*{ingredients[__${ind.index}__].product.id}" />
+                            <input type="number" th:field="*{ingredients[__${ind.index}__].quantity}"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-custom btn-block btn-md">Order</button>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>

@@ -19,11 +19,10 @@ public class Order {
     @JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = false)
     private Supplier supplier;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "date_of_order", nullable = false)
+    @Column(name = "date_of_order", nullable = false, columnDefinition = "TIMESTAMP")
     private Date dateOfOrder;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "orders_ingredients",
         joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "ingredient_id", referencedColumnName = "id"))
@@ -39,8 +38,7 @@ public class Order {
     @Column
     private boolean delivered;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(name = "delivered_on")
+    @Column(name = "delivered_on", columnDefinition = "TIMESTAMP")
     private Date deliveredOn;
 
     public Order() {

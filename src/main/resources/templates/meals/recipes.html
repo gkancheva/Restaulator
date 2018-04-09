@@ -12,30 +12,27 @@
         <th:block th:replace="fragments/messages"></th:block>
         <div class="container">
             <div class="text-center my-3">
-                <h2>Suppliers</h2>
+                <h2>Recipes</h2>
             </div>
+            <a th:href="@{/recipes/add}" class="btn btn-custom my-3">Add recipe</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Contact phone</th>
-                    <th>Address</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
                     <th class="text-center">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="s, ind : ${suppliers}">
+                <tr th:each="r, ind : ${recipes}">
                     <td th:text="${ind.index + 1}"></td>
-                    <td th:text="${s.getName()}"></td>
-                    <td th:text="${s.getPhone()}"></td>
-                    <td th:text="${s.getAddress()}"></td>
+                    <td th:text="${r.getName()}"></td>
+                    <td th:text="${r.getQuantity()}"></td>
+                    <td th:text="${r.getCost()}"></td>
                     <td class="text-center">
-                        <a th:href="@{/suppliers/edit (name = ${s.getName()})}" th:text="Edit"></a>
-                    </td>
-                    <td class="text-center">
-                        <a th:href="@{/products (name = ${s.getName()})}">View products</a>
-                        <a th:href="@{/suppliers/order (id = ${s.getId()})}">Make order</a>
+                        <a th:href="@{/recipes/edit (id = ${r.getId()})}" th:text="Edit"></a>
                     </td>
                 </tr>
                 </tbody>

@@ -13,14 +13,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/public/**");
+                .antMatchers("/static/**", "/public/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/users/register", "/errors").permitAll()
-                .antMatchers("/users").access("hasAuthority('ADMIN')")
+                .antMatchers("/", "/users/register", "/error").permitAll()
+                .antMatchers("/users", "/orders/approve").access("hasAuthority('ADMIN')")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/users/login?logout").permitAll()
             .and()
                 .exceptionHandling()
-                .accessDeniedPage("/errors/error");
+                .accessDeniedPage("/error/unauthorized");
     }
 
 }

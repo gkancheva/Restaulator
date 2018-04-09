@@ -5,7 +5,7 @@ import com.company.restaulator.areas.product.services.ProductService;
 import com.company.restaulator.areas.supplier.dtos.SupplierDTO;
 import com.company.restaulator.areas.supplier.services.SupplierService;
 import com.company.restaulator.controllers.BaseController;
-import com.company.restaulator.utils.Messages;
+import com.company.restaulator.utils.MessagesConst;
 import com.company.restaulator.utils.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,7 +78,7 @@ public class ProductController extends BaseController {
             return this.view(PRODUCT_EDIT_VIEW, this.getSuppliersAndProduct(product));
         }
         this.productService.save(product);
-        return this.redirectWithMessage(SUPPLIERS_VIEW_ALL, Messages.PRODUCT_SUCCESSFULLY_EDITED, Notification.Type.SUCCESS, ra);
+        return this.redirectWithMessage(SUPPLIERS_VIEW_ALL, MessagesConst.PRODUCT_SUCCESSFULLY_EDITED, Notification.Type.SUCCESS, ra);
     }
 
     @GetMapping("/delete")
@@ -90,7 +90,7 @@ public class ProductController extends BaseController {
     @PostMapping("/delete")
     public ModelAndView deleteSubmit(@ModelAttribute(PRODUCT_KEY) ProductDTO product, RedirectAttributes ra) {
         this.productService.delete(product);
-        return this.redirectWithMessage(SUPPLIERS_VIEW_ALL, Messages.PRODUCT_SUCCESSFULLY_DELETED, Notification.Type.SUCCESS, ra);
+        return this.redirectWithMessage(SUPPLIERS_VIEW_ALL, MessagesConst.PRODUCT_SUCCESSFULLY_DELETED, Notification.Type.SUCCESS, ra);
     }
 
     private Map<String, Object> getSuppliersAndProduct(ProductDTO product) {

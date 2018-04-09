@@ -1,17 +1,19 @@
 package com.company.restaulator.areas.supplier.repositories;
 
-import com.company.restaulator.areas.supplier.entities.Supplier;
+import com.company.restaulator.areas.supplier.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
-public interface SupplierRepository extends JpaRepository<Supplier, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    Supplier findById(long id);
+    Order findById(long id);
 
-    @Query("SELECT s FROM Supplier AS s WHERE s.name = ?1")
-    Supplier findByName(String name);
+    @Query("SELECT o FROM Order AS o WHERE o.approved = FALSE")
+    List<Order> findAllUnapproved();
 }

@@ -40,6 +40,11 @@ public abstract class BaseController {
         return new ModelAndView(REDIRECT_PREFIX + url);
     }
 
+    protected ModelAndView redirectWithAttr(String url, String key, Object value, RedirectAttributes ra) {
+        ra.addFlashAttribute(key, value);
+        return this.redirect(url);
+    }
+
     protected ModelAndView redirectWithMessage(String viewName, String message, Notification.Type type, RedirectAttributes ra) {
         Notification notification = new Notification(message, type);
         ra.addFlashAttribute(NOTIFICATION_KEY, notification);

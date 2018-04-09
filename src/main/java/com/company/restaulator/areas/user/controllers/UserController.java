@@ -7,7 +7,7 @@ import com.company.restaulator.areas.user.dtos.UserLoginDTO;
 import com.company.restaulator.areas.user.dtos.UserRegisterDTO;
 import com.company.restaulator.areas.user.services.RoleService;
 import com.company.restaulator.areas.user.services.UserService;
-import com.company.restaulator.utils.Messages;
+import com.company.restaulator.utils.MessagesConst;
 import com.company.restaulator.utils.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,7 +53,7 @@ public class UserController extends BaseController {
         }
         UserRegisterDTO u = this.userService.findByEmail(user.getEmail());
         if(u != null) {
-            return this.viewWithMessage(USERS_REGISTER_VIEW, Messages.USER_ALREADY_EXISTS, Notification.Type.DANGER);
+            return this.viewWithMessage(USERS_REGISTER_VIEW, MessagesConst.USER_ALREADY_EXISTS, Notification.Type.DANGER);
         }
         this.userService.save(user);
         return this.redirect(USERS_LOGIN_VIEW);
@@ -62,7 +62,7 @@ public class UserController extends BaseController {
     @GetMapping("/login")
     public ModelAndView login(@RequestParam(required = false) String error, @ModelAttribute(USER_KEY) UserLoginDTO user, ModelAndView mav) {
         if(error != null) {
-            mav = this.viewWithMessage(USERS_LOGIN_VIEW, Messages.INVALID_USERNAME_OR_PASS, Notification.Type.DANGER);
+            mav = this.viewWithMessage(USERS_LOGIN_VIEW, MessagesConst.INVALID_USERNAME_OR_PASS, Notification.Type.DANGER);
         }
         mav.addObject(USER_KEY, user);
         return mav;
@@ -90,6 +90,6 @@ public class UserController extends BaseController {
             return this.view(USER_EDIT_VIEW, AUTHORITIES_KEY, authorities);
         }
         this.userService.update(userDTO);
-        return this.redirectWithMessage(USERS_REDIRECT, Messages.USER_SUCCESSFULLY_EDITED, Notification.Type.SUCCESS, ra);
+        return this.redirectWithMessage(USERS_REDIRECT, MessagesConst.USER_SUCCESSFULLY_EDITED, Notification.Type.SUCCESS, ra);
     }
 }

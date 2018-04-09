@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head"></th:block>
+</head>
+<body>
+    <div th:replace="fragments/navbar"></div>
+    <div class="container my-3">
+        <th:block th:replace="fragments/messages"></th:block>
+        <div class="alert alert-danger text-center" th:if="${#fields.hasErrors('${recipe}')}">
+            <span th:each="e : ${#fields.errors('${recipe}')}" th:text="${e}"></span>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-3">
+                <h2 class="text-center">Add new recipe</h2>
+                <form class="my-3" th:action="@{/recipes/add}" th:method="post" th:object="${recipe}">
+                    <div class="form-group">
+                        <label>Recipe name</label>
+                        <input type="text" title="name" class="form-control" th:field="*{name}"
+                               th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                             th:each="e : ${#fields.errors('name')}" th:text="${e}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity for single portion</label>
+                        <input type="number" step="0.01" title="quantity" class="form-control" th:field="*{quantity}"
+                               th:classappend="${#fields.hasErrors('quantity')} ? 'is-invalid'"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('quantity')}"
+                             th:each="e : ${#fields.errors('quantity')}" th:text="${e}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Cost for single portion</label>
+                        <input type="number" step="0.01" title="cost" class="form-control" th:field="*{cost}"
+                               th:classappend="${#fields.hasErrors('cost')} ? 'is-invalid'"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('cost')}"
+                             th:each="e : ${#fields.errors('cost')}" th:text="${e}"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ingredients</label>
+                        <select multiple class="form-control" id="ingredients" th:field="*{ingredients}">
+                            <th:block th:each="i : ${ingredients}">
+                                <option th:value="${{i}}" th:text="${i.getProduct().getName()}"></option>
+                            </th:block>
+                        </select>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('ingredients')}"
+                             th:each="e : ${#fields.errors('ingredients')}" th:text="${e}"></div>
+                    </div>
+                    <button type="submit" class="btn btn-custom btn-block btn-md">Add recipe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
+</body>
+</html>

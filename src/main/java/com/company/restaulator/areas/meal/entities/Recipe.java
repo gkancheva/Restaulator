@@ -27,7 +27,7 @@ public class Recipe {
     private double quantity;
 
     @Column(nullable = false)
-    @DecimalMin("0.1")
+    @DecimalMin("0.01")
     private BigDecimal cost;
 
     public Recipe() {
